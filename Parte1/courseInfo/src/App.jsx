@@ -1,3 +1,4 @@
+//COMPONENTE PARA EL ENCABEZADO DE LA APP
 function Header (props){
   console.log(props);
   
@@ -8,6 +9,7 @@ function Header (props){
   )
 }
 
+//COMPONENTE QUE RENDERIZA EL CONTENIDO DE LOS CUSROS
 function Content ({ parts }){
   console.log('componente cinten:',parts);
   
@@ -21,6 +23,7 @@ function Content ({ parts }){
 
 }
 
+//COMPONENTE QUE MUESTRA EL TOTAL DE LOS EJERCICIOS
 function Total(props){
   const total = props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises
   return(
@@ -30,6 +33,7 @@ function Total(props){
   )
 }
 
+//COMPONENTE PARA EL CUERPO DE LA APP
 function Part(props){
   return(
     <>
@@ -44,6 +48,8 @@ function Part(props){
   )
 }
 
+
+//COMPONENTE PRICIPAL
 function App() {
   const course = {
     name: 'Half Stack application development',
