@@ -2,7 +2,7 @@ import { useState } from "react"
 
 //COMPONENTE DE TITULO
 function Title(props) {
-  return(
+  return (
     <>
       <div>
         <h1>{props.titleName}</h1>
@@ -14,32 +14,50 @@ function Title(props) {
 
 //COMPONENTE DE BOTON
 function Button({ name, handleClick }) {
-  return(
+  return (
     <>
       <button onClick={handleClick}>{name}</button>
     </>
   )
 }
 
+//ESTADISTICA ESTATICA O INDIVIDUAL
+function StaticLine({ text, value }) {
+  return (
+    <tr>
+      <td>{text}</td>
+      <td>{value}</td>
+    </tr>
+  )
+}
 
 //COMPONENTE DE ESTADISTICAS
-function Statistics({ good, neutral, bad }){
+function Statistics({ good, neutral, bad }) {
   let total = good + neutral + bad;
-  let positivo = (good*100)/total;
-  let average = ((good*1)+(neutral*0)+(bad*-1))/total;
+  let positivo = (good * 100) / total;
+  let average = ((good * 1) + (neutral * 0) + (bad * -1)) / total;
 
-  return(
+  if (total != 0) {
+    return (
+      <>
+        <div>
+          <StaticLine text="good" value={good} />
+          <StaticLine text="neutral" value={neutral} />
+          <StaticLine text="bad" value={bad} />
+          <StaticLine text="all" value={total} />
+          <StaticLine text="average" value={average} />
+          <StaticLine text="positive" value={positivo + "%"} />
+        </div>
+      </>
+    )
+  }
+
+  return (
     <>
-      <div>
-        <p>good {good}</p>
-        <p>neutral {neutral}</p>
-        <p>bad {bad}</p>
-        <p>all {total}</p>
-        <p>average {average}</p>
-        <p>positive {positivo} %</p>
-      </div>
+      <p>No feedback given</p>
     </>
   )
+
 }
 
 
@@ -48,24 +66,24 @@ function App() {
 
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
-  const [bad, setBad]= useState(0);
+  const [bad, setBad] = useState(0);
 
-  const handleClickGood = ()=>{
+  const handleClickGood = () => {
     setGood(good + 1)
   }
 
-  const handleClickNeutral = ()=>{
+  const handleClickNeutral = () => {
     setNeutral(neutral + 1)
   }
 
-  const handleClickBad = ()=>{
+  const handleClickBad = () => {
     setBad(bad + 1)
   }
 
   return (
     <>
       <div>
-        <Title titleName = "Give feedback"></Title>
+        <Title titleName="Give feedback"></Title>
         <Button name="good" handleClick={handleClickGood} ></Button>
         <Button name="neutral" handleClick={handleClickNeutral}></Button>
         <Button name="bad" handleClick={handleClickBad}></Button>
