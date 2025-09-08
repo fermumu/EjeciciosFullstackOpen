@@ -1,33 +1,77 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react"
 
+//COMPONENTE DE TITULO
+function Title(props) {
+  return(
+    <>
+      <div>
+        <h1>{props.titleName}</h1>
+      </div>
+    </>
+  )
+}
+
+
+//COMPONENTE DE BOTON
+function Button({ name, handleClick }) {
+  return(
+    <>
+      <button onClick={handleClick}>{name}</button>
+    </>
+  )
+}
+
+
+//COMPONENTE DE ESTADISTICAS
+function Statistics({ good, neutral, bad }){
+  let total = good + neutral + bad;
+  let positivo = (good*100)/total;
+  let average = ((good*1)+(neutral*0)+(bad*-1))/total;
+
+  return(
+    <>
+      <div>
+        <p>good {good}</p>
+        <p>neutral {neutral}</p>
+        <p>bad {bad}</p>
+        <p>all {total}</p>
+        <p>average {average}</p>
+        <p>positive {positivo} %</p>
+      </div>
+    </>
+  )
+}
+
+
+//COMPONENTE PRINCIPAL
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad]= useState(0);
+
+  const handleClickGood = ()=>{
+    setGood(good + 1)
+  }
+
+  const handleClickNeutral = ()=>{
+    setNeutral(neutral + 1)
+  }
+
+  const handleClickBad = ()=>{
+    setBad(bad + 1)
+  }
 
   return (
     <>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <Title titleName = "Give feedback"></Title>
+        <Button name="good" handleClick={handleClickGood} ></Button>
+        <Button name="neutral" handleClick={handleClickNeutral}></Button>
+        <Button name="bad" handleClick={handleClickBad}></Button>
+        <Title titleName="statistics"></Title>
+        <Statistics good={good} neutral={neutral} bad={bad}></Statistics>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
