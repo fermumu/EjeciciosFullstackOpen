@@ -1,7 +1,6 @@
 import { useState } from "react"
 
 function Button({ text, handleClick }) {
-  
 
   return (
     <>
@@ -9,6 +8,7 @@ function Button({ text, handleClick }) {
     </>
   )
 }
+
 
 function App() {
   const anecdotes = [
@@ -23,23 +23,44 @@ function App() {
   ]
 
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0))
+
+  const indexMayor = votes.indexOf(Math.max(...votes));
+
+  // let mayor = votes[0];
+  // let indexMayor = 0;
+  // for(i=0; i<= votes.length; i++){
+  //   if(votes[i] > mayor){
+  //     mayor = votes[i];
+  //     indexMayor = i;
+  //   }
+  // };
 
   const handleClickRandon = () => {
     const numero = Math.floor(Math.random() * 8);
     console.log(numero);
-    
     setSelected(numero);
   }
 
+  const handleClickVote = () => {
+    const copy = [...votes];
+    copy[selected] += 1;
+    setVotes(copy)
+
+  }
+
+
   return (
     <>
-      <div>
-        {anecdotes[selected]}
-
-      </div>
-      <Button text="vote"/>
-      <Button text="next anecdote" handleClick={handleClickRandon}/>
       
+        <h1>Anecdote of the day</h1>
+        {anecdotes[selected]}
+        <p>has {votes[selected]} votes</p>
+        <Button text="vote" handleClick={handleClickVote} />
+        <Button text="next anecdote" handleClick={handleClickRandon} />
+        <h1>Anecdote with most votes</h1>
+        {anecdotes[indexMayor]}
+        <p>has {votes[indexMayor]} votes</p>
     </>
   )
 }

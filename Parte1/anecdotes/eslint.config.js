@@ -25,7 +25,7 @@ export default defineConfig([
     rules: {
       ...js.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
-      'no-unused-vars': "warn",
+      'no-unused-vars': true,
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
